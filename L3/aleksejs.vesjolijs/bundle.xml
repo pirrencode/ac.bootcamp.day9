@@ -1,0 +1,49 @@
+<bundle-app name="Word Count Bundle 1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="uri:oozie:bundle:0.2">
+
+<parameters>
+    <property>
+        <name>oozie.use.system.libpath</name>
+        <value>true</value>
+    </property>
+  </parameters>
+  <controls>
+     <kick-off-time>2019-02-28T13:25Z</kick-off-time>
+  </controls>  
+
+  <coordinator name="mycoordinator1">
+     <app-path>${nameNode}/user/oozie_tasks/L3/coordinator1</app-path>
+     <configuration>
+       <property>
+          <name>wf_app_path</name>
+          <value>${nameNode}/user/oozie_tasks/L3/coordinator1/workflow</value>
+      </property>
+      <property>
+          <name>start_date</name>
+          <value>2019-02-28T12:15Z</value>
+     </property>
+      <property>
+          <name>end_date</name>
+          <value>2019-02-28T20:05Z</value>
+     </property>
+    </configuration>
+  </coordinator>
+
+  <coordinator name="mycoordinator2">
+     <app-path>${nameNode}/user/oozie_tasks/L3/coordinator2</app-path>
+     <configuration>
+       <property>
+          <name>wf_app_path</name>
+          <value>${nameNode}/user/oozie_tasks/L3/coordinator2/workflow</value>
+      </property>
+      <property>
+          <name>start_date</name>
+          <value>2019-02-28T12:15Z</value>
+     </property>
+      <property>
+          <name>end_date</name>
+          <value>2019-02-28T20:05Z</value>
+     </property>
+    </configuration>
+  </coordinator>
+
+</bundle-app>

@@ -1,0 +1,29 @@
+<workflow-app name="My_Workflow" xmlns="uri:oozie:workflow:0.5">
+    <start to="pig-node"/>
+    <kill name="Kill">
+        <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+
+    <action name="pig-node">
+        <pig>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <script>/user/oozie_tasks/L3/coordinator1/workflow/l1_pig.pig</script>
+        </pig>
+        <ok to="hive-node"/>
+        <error to="Kill"/>
+    </action>
+
+    <action name="hive-node" cred="hcat">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+             <job-xml>/user/oozie_tasks/L3/coordinator1/workflow/hive-site.xml</job-xml>
+            <script>/user/oozie_tasks/L3/coordinator1/workflow/l1_query.hql</script>
+        </hive>
+        <ok to="End"/>
+        <error to="Kill"/>
+    </action>
+
+    <end name="End"/>
+</workflow-app>
