@@ -7,5 +7,6 @@
 
 #L2.2 comments - almost done, but encountered unknown error, perhaps need to pass sql query with file
 
-#L3 - L3 bundles success - compilation took more than hour, so on the L3 bundles it's still running on 54% (too many jobs and hue too slow)
-#All other L3 100% success - workflows, jobs.
+#L3 - L3 bundles finally 100% success - see L3_bundle_SUCCESS and L3_bundle_SUCCESS_FULL
+
+#All other L3 also 100% success - workflows, jobs.
