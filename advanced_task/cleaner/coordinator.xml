@@ -1,0 +1,13 @@
+<coordinator-app name="Cleaner_Coordinator" frequency="29 * * * *" start="${start_date}" end="${end_date}" timezone="UTC" xmlns="uri:oozie:coordinator:0.2">
+  <action>
+    <workflow>
+      <app-path>${wf_app_path}</app-path>
+      <configuration>
+        <property>
+          <name>oozie.use.system.libpath</name>
+          <value>True</value>
+        </property>
+      </configuration>
+   </workflow>
+  </action>
+</coordinator-app>

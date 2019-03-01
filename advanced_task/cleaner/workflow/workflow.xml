@@ -1,0 +1,27 @@
+<workflow-app name="cleaner" xmlns="uri:oozie:workflow:0.5">
+    <start to="shellAction"/>
+
+    <action name="shellAction">
+        <shell xmlns="uri:oozie:shell-action:0.1">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <configuration>
+                <property>
+                  <name>mapred.job.queue.name</name>
+                  <value>default</value>
+                </property>
+            </configuration>
+            <exec>${CleanerShellScript}</exec>   
+            <file>${CleanerScriptPath}#${CleanerShellScript}</file>
+            <capture-output/>
+        </shell>
+        <ok to="End"/>
+        <error to="Kill"/>
+    </action>
+
+    <kill name="Kill">
+        <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+
+    <end name="End"/>
+</workflow-app>

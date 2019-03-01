@@ -1,0 +1,19 @@
+<workflow-app name="receiver" xmlns="uri:oozie:workflow:0.5">
+    <start to="hive-node"/>
+    <kill name="Kill">
+        <message>Action failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+
+    <action name="hive-node" cred="hcat">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+             <job-xml>/user/oozie_tasks/receiver/workflow/hive-site.xml</job-xml>
+            <script>/user/oozie_tasks/receiver/workflow/input.hql</script>
+        </hive>
+        <ok to="End"/>
+        <error to="Kill"/>
+    </action>
+
+    <end name="End"/>
+</workflow-app>

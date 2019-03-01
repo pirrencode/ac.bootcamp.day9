@@ -1,0 +1,26 @@
+<coordinator-app name="reciever_coordinator" frequency="42 * * * *" start="${start_date}" end="${end_date}" timezone="UTC" xmlns="uri:oozie:coordinator:0.2">
+  <datasets>
+    <dataset name="daily-feed" frequency="5" initial-instance="${start_date}" timezone="UTC">
+      <uri-template>
+        ${nameNode}/user/oozie_tasks/STEP2/YYYY/MM/DD
+      </uri-template>
+      <done-flag>_SUCCESS</done-flag>
+    </dataset>
+  </datasets>
+  <input-events>
+    <data-in name="event-input" dataset="daily-feed">
+      <instance>${coord:current(0)}</instance>
+    </data-in>
+  </input-events>
+  <action>
+    <workflow>
+      <app-path>${wf_app_path}</app-path>
+      <configuration>
+        <property>
+          <name>oozie.use.system.libpath</name>
+          <value>True</value>
+        </property>
+      </configuration>
+   </workflow>
+  </action>
+</coordinator-app>
